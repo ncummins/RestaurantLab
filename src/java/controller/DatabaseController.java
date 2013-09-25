@@ -6,13 +6,16 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Receipt;
+import javax.servlet.http.HttpSession;
+import model.Item;
+import model.OrderService;
 
 /**
  *
@@ -20,10 +23,10 @@ import model.Receipt;
  */
 @WebServlet(name = "DatabaseController", urlPatterns = {"/DatabaseController"})
 public class DatabaseController extends HttpServlet {
-    private static final String ORDER_PAGE = "/menu.jsp";
+
     private static final String RESULT_PAGE = "/receipt.jsp";
     private static final String SUBMIT_BTN = "submit";
-    
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -38,22 +41,54 @@ public class DatabaseController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String orderEvent = request.getParameter(SUBMIT_BTN);
         try {
-            String[] items = request.getParameterValues("menuItem");
-            Receipt r = new Receipt();
-            
-            r.setOrderPrice(items);
-            
-            request.setAttribute("menuItems", r.getItemList());
-            request.setAttribute("tax", r.getTax());
-            request.setAttribute("tip", r.getTip());
-            request.setAttribute("total", r.getTotal());
-            
+            HttpSession session = request.getSession();
+            Object objService = session.getAttribute("orderService");
+
+            OrderService orderService = null;
+            if (objService == null) {
+                orderService = new OrderService();
+                session.setAttribute("orderService", orderService);
+            } else {
+                orderService = (OrderService) objService;
+            }
+
+            List<Item> menuList = orderService.getMenuList();
+            List<Item> orderList = orderService.getOrderList();
+
+            String[] orderItems = null;
+
+            if (orderEvent == null) {
+                // nothing to do, it's a new order
+            } else if (orderEvent.startsWith("Place")) {
+                
+                orderItems = request.getParameterValues("menuItems");
+                orderList.clear();
+                for (String item : orderItems) {
+                    for (Item menuItem : menuList) {
+                        if (menuItem.getName().equals(item)) {
+                            orderList.add(menuItem);
+                            break;
+                        }
+                    }
+                }
+
+                orderService.setOrderList(orderList);
+                orderService.placeOrder();
+                
+            }
+
+
+            request.setAttribute("menuList", menuList);
+            request.setAttribute("orderList", orderList);
+
+
             RequestDispatcher view =
-                request.getRequestDispatcher(RESULT_PAGE);
+                    request.getRequestDispatcher(RESULT_PAGE);
             view.forward(request, response);
-            
-        } finally {            
+
+        } finally {
             out.close();
         }
     }

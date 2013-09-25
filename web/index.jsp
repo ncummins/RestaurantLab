@@ -22,7 +22,7 @@
     <body>
         <h1>Welcome to the Restaurant Simulator!</h1>
         <p>click the image to see the menu</p>
-        <a href="menu.jsp"><img src="restaurant.jpg" height="50%" width="50%"/></a>
+        <a href="menu2.jsp"><img src="restaurant.jpg" height="50%" width="50%"/></a>
 
     </body>
 </html>

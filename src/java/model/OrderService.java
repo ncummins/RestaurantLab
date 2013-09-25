@@ -25,7 +25,10 @@ public class OrderService {
         orderList = new ArrayList<Item>();
     }
     
-
+    public void placeOrder() {
+        initItemsDb();
+    }
+    
     public List<Item> getMenuList() {
         return menuList;
     }
