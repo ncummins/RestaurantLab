@@ -20,7 +20,7 @@ public class Receipt {
         subTotal = 0;
         itemList = "";
         MenuStrategy mi = new MenuItems();
-        //menuItem = new MenuItems();
+        
         for (String itemOrdered : items) {
             for (Item i : mi.getItems()) {
                 if (itemOrdered.equals(i.getName())) {
