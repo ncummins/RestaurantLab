@@ -63,8 +63,10 @@ public class DatabaseController extends HttpServlet {
                 // nothing to do, it's a new order
             } else if (orderEvent.startsWith("Place")) {
                 
-                orderItems = request.getParameterValues("menuItems");
+                orderItems = request.getParameterValues("menuItem");
                 orderList.clear();
+                
+                //problem may be here
                 for (String item : orderItems) {
                     for (Item menuItem : menuList) {
                         if (menuItem.getName().equals(item)) {
@@ -76,7 +78,6 @@ public class DatabaseController extends HttpServlet {
 
                 orderService.setOrderList(orderList);
                 orderService.placeOrder();
-                
             }
 
 

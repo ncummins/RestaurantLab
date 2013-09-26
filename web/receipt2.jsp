@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.text.NumberFormat"%>
-<%@page import="java.util.*, model.MenuItem"%>
+<%@page import="java.util.*, model.Item"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,10 +23,10 @@
                 NumberFormat nf = NumberFormat.getCurrencyInstance();
                 Object objOrderList = request.getAttribute("orderList");
                 if(objOrderList != null) {
-                    List<MenuItem> orderList = (List<MenuItem>)objOrderList;
-                    for(MenuItem item : orderList) {
-                        out.println("<li>" + item.getItemName() + ", " + nf.format(item.getItemPrice()) + "</li>");
-                        total += item.getItemPrice();
+                    List<Item> orderList = (List<Item>)objOrderList;
+                    for(Item item : orderList) {
+                        out.println("<li>" + item.getName() + ", " + nf.format(item.getPrice()) + "</li>");
+                        total += item.getPrice();
                     }
                     out.println("<br/><br/>");
                     out.println("Subtotal: " + nf.format(total) + "<br/>");

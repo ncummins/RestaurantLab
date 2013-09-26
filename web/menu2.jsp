@@ -38,12 +38,12 @@
     <body>
         <form id="menu" name="menu" method="POST" action="DatabaseController" onsubmit="return validate(this)">
             <p>Select which items you would like to order.</p>
-            <input type="checkbox" name="menuItem" value="1" id="beer">Beer<br>
-            <input type="checkbox" name="menuItem" value="2" id="steak">Steak<br>
-            <input type="checkbox" name="menuItem" value="3" id="pizza">Pizza<br>
-            <input type="checkbox" name="menuItem" value="4" id="lobster">Lobster<br>
-            <input type="checkbox" name="menuItem" value="5" id="cheeseburger">Cheeseburger<br>
-            <input type="checkbox" name="menuItem" value="6" id="fishnchips">Fish & Chips<br>
+            <input type="checkbox" name="menuItem" value="beer" id="beer">Beer<br>
+            <input type="checkbox" name="menuItem" value="steak" id="steak">Steak<br>
+            <input type="checkbox" name="menuItem" value="pizza" id="pizza">Pizza<br>
+            <input type="checkbox" name="menuItem" value="lobster" id="lobster">Lobster<br>
+            <input type="checkbox" name="menuItem" value="cheeseburger" id="cheeseburger">Cheeseburger<br>
+            <input type="checkbox" name="menuItem" value="fishnchips" id="fishnchips">Fish & Chips<br>
             <br>
             <button type="submit" id="submit" value="Place Order" name="submit">Order</button>
         </form>
