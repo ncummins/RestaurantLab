@@ -24,7 +24,7 @@ import model.OrderService;
 @WebServlet(name = "DatabaseController", urlPatterns = {"/DatabaseController"})
 public class DatabaseController extends HttpServlet {
 
-    private static final String RESULT_PAGE = "/receipt.jsp";
+    private static final String RESULT_PAGE = "/receipt2.jsp";
     private static final String SUBMIT_BTN = "submit";
 
     /**
@@ -42,7 +42,7 @@ public class DatabaseController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String orderEvent = request.getParameter(SUBMIT_BTN);
-        try {
+        
             HttpSession session = request.getSession();
             Object objService = session.getAttribute("orderService");
 
@@ -87,10 +87,8 @@ public class DatabaseController extends HttpServlet {
             RequestDispatcher view =
                     request.getRequestDispatcher(RESULT_PAGE);
             view.forward(request, response);
-
-        } finally {
-            out.close();
-        }
+           
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

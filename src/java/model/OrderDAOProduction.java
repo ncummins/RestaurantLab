@@ -15,9 +15,9 @@ public class OrderDAOProduction implements IOrderDAO {
     private DBAccessor db;
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = 
-            "jdbc:mysql://localhost:3306/RestaurantOrderingSystem";
+            "jdbc:mysql://localhost:3306/menu_items";
     private static final String USER = "root";
-    private static final String PWD = "root";
+    private static final String PWD = "admin";
     
     public OrderDAOProduction() {
         db = new DB_Generic();
@@ -33,7 +33,7 @@ public class OrderDAOProduction implements IOrderDAO {
             db.openConnection(OrderDAOProduction.DRIVER,OrderDAOProduction.URL,
                     OrderDAOProduction.USER, OrderDAOProduction.PWD);
             
-            String sql = "select * from menu_item order by item_name";
+            String sql = "select * from items order by item_id";
             
             // Usuallly you want the connection to be closed when the db
             // method finishes (second parameter = true). The reason is that
@@ -42,11 +42,11 @@ public class OrderDAOProduction implements IOrderDAO {
             List<Map> rawData = db.findRecords(sql, true);
             for(Map record : rawData) {
                 Item item = new Item();
-                int id = Integer.valueOf(record.get("menu_item_id").toString());
+                int id = Integer.valueOf(record.get("item_id").toString());
                 item.setId(id);
                 String name = String.valueOf(record.get("item_name"));
                 item.setName(name);
-                Double price = Double.valueOf(record.get("item_price").toString());
+                Double price = Double.valueOf(record.get("item_cost").toString());
                 item.setPrice(price);
                 items.add(item); 
             }
