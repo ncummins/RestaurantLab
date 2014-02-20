@@ -13,7 +13,6 @@
             body{
                 background-color: cyan;
             }
-            
             h1{
                 font-family: "Times New Roman";
             }
@@ -21,8 +20,11 @@
     </head>
     <body>
         <h1>Welcome to the Restaurant Simulator!</h1>
-        <p>click the image to see the menu</p>
-        <a href="menu2.jsp"><img src="restaurant.jpg" height="50%" width="50%"/></a>
-
+        <a href="admin.jsp">Click here to edit the menu</a>
+        <p>Click the image to see the menu</p>
+        <a href="DatabaseController?action=getMenu"><img src="restaurant.jpg" height="50%" width="50%"/></a>
+            <%--
+                need to call the database controller and then have the controller forward to the menu
+            --%>
     </body>
 </html>

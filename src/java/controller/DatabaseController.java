@@ -42,11 +42,20 @@ public class DatabaseController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String orderEvent = request.getParameter(SUBMIT_BTN);
+        String action = request.getParameter("action");
+        OrderService orderService =  new OrderService();
+        List<Item> menuList = orderService.getMenuList();
+        String destination = null;
         
+        if (action.equals("getMenu")){
+             request.setAttribute("menuList", menuList);
+             destination = "/menu2.jsp";
+        } else{
+            destination = RESULT_PAGE;
             HttpSession session = request.getSession();
             Object objService = session.getAttribute("orderService");
 
-            OrderService orderService = null;
+            
             if (objService == null) {
                 orderService = new OrderService();
                 session.setAttribute("orderService", orderService);
@@ -54,7 +63,7 @@ public class DatabaseController extends HttpServlet {
                 orderService = (OrderService) objService;
             }
 
-            List<Item> menuList = orderService.getMenuList();
+            
             List<Item> orderList = orderService.getOrderList();
 
             String[] orderItems = null;
@@ -83,10 +92,10 @@ public class DatabaseController extends HttpServlet {
 
             request.setAttribute("menuList", menuList);
             request.setAttribute("orderList", orderList);
-
+        }
 
             RequestDispatcher view =
-                    request.getRequestDispatcher(RESULT_PAGE);
+                    request.getRequestDispatcher(destination);
             view.forward(request, response);
            
         

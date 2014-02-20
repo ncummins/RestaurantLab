@@ -17,18 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Restaurant Menu</title>
-        <script type="text/javascript">
-            function validate(theForm) {
-                if (!document.getElementById('beer').checked && !document.getElementById('steak').checked
-                        && !document.getElementById('pizza').checked && !document.getElementById('lobster').checked
-                        && !document.getElementById('cheeseburger').checked && !document.getElementById('fishnchips').checked){
-                    alert("Please make a selection");
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        </script>
+        
         <style type="text/css">
             body{
                 background-color: cyan;
@@ -36,16 +25,20 @@
         </style>
     </head>
     <body>
-        <form id="menu" name="menu" method="POST" action="DatabaseController" onsubmit="return validate(this)">
-            <p>Select which items you would like to order.</p>
-            <input type="checkbox" name="menuItem" value="beer" id="beer">Beer<br>
-            <input type="checkbox" name="menuItem" value="steak" id="steak">Steak<br>
-            <input type="checkbox" name="menuItem" value="pizza" id="pizza">Pizza<br>
-            <input type="checkbox" name="menuItem" value="lobster" id="lobster">Lobster<br>
-            <input type="checkbox" name="menuItem" value="cheeseburger" id="cheeseburger">Cheeseburger<br>
-            <input type="checkbox" name="menuItem" value="fishnchips" id="fishnchips">Fish & Chips<br>
-            <br>
-            <button type="submit" id="submit" value="Place Order" name="submit">Order</button>
-        </form>
-    </body>
+		<h2 style="font-family: Arial,sans-serif">Place your order...</h2><font face="Arial" size="2"><br/>
+                <span style="font-size: small;">(or click <a href="index.jsp">here</a> to return to home page)</span><br><br>
+		<Form method="Post" action ="DatabaseController">
+		<%
+		    List<Item> menu = (List) request.getAttribute("menuList");
+		    for (Item i:menu){%>	
+
+			<input type="checkbox" id ="<%=i.getName()%>" name="<%= i.getName()%>" value ="test">
+			<%= i.getName()  %>
+			<br>		     
+			<%}%>
+
+		<input id ="submit" type ="Submit" value ="Place Order" name ="placeOrder">
+	    </form>
+		<br>
+	</body>
 </html>
